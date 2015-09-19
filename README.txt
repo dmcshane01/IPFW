@@ -1,0 +1,1 @@
+This is a collection of school or personal projects I have made or worked on while attending IPFW
