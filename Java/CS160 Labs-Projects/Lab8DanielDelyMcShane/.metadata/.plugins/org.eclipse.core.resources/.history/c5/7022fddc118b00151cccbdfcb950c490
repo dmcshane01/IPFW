@@ -1,0 +1,108 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class shapes {
+
+	public static void main(String[] args)
+	{
+	
+		String choice;
+		Random rand = new Random();
+		Scanner inp = new Scanner(System.in);
+		
+		System.out.println("Would you like tm make a circle or triange?");
+		choice = inp.nextLine();
+		
+		if(choice.equalsIgnoreCase("circle"))
+
+	}
+	
+	public class Circle
+	{
+		private double radius;
+		public final double PI = 3.14159;
+		
+		
+		Circle() //default constructor
+		{
+			radius = 0;
+		}
+		
+		Circle(double r) //constructor sets double parameter as radius of circle
+		{
+			radius = r;
+		}
+		
+		public void setRadius(double r)
+		{
+			radius = r;
+		}
+		
+		public double getRadius()
+		{
+			return radius;
+		}
+		
+		public double getArea()
+		{
+		
+			return PI * radius * radius; //change
+		}
+		
+		public double getDiameter()
+		{
+			return radius * 2;
+		}
+		
+		public double getCircumference()
+		{
+			return 2 * PI * radius;
+		}
+		
+	}
+	
+	public class Triangle
+	{
+		private double base;
+		private double height;
+		
+		Triangle()
+		{
+			base = 0;
+			height = 0;
+		}
+		
+		Triangle(double b, double h)
+		{
+			base = b;
+			height = h;
+		}
+		
+		public void setBase(double b)
+		{
+			base = b;
+		}
+		
+		public double getBase()
+		{
+			return base;
+		}
+		
+		public void setHeight(double h)
+		{
+			height = h;
+		}
+		
+		public double getHeight()
+		{
+			return height;
+		}
+		
+		public double getArea()
+		{
+			return .5 * base * height;
+		}
+		
+	}	
+
+}

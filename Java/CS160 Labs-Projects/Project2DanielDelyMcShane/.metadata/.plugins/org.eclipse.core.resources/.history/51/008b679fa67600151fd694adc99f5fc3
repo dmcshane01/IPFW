@@ -1,0 +1,13 @@
+import java.io.*;
+public class ExamScores {
+
+	public static void main(String[] args) {
+	//Block of variables used in program
+	double		minScore;
+	double     	maxScore;
+	double 		sumScores;
+	double 		averageScore;
+	
+	}
+
+}

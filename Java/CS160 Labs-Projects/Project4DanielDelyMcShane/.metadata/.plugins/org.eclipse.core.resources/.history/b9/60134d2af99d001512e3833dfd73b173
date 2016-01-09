@@ -1,0 +1,111 @@
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.*;
+
+public class Main {
+	/*
+	 * Declaring these variables in objects outside of the main function 
+	 * so that the whole main class can access them
+	 */
+	
+	//keeps track of position in array of flights
+	static int flightCount = 0;
+	static int passCount = 0;
+	
+	//arrays used to store fligth and passenger obj
+	static Flights[] allFlights = new Flights[100];//stores 100 flights
+	static Passenger[] allPass = new Passenger[100];
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		
+	createFlight();
+	newReservation();
+	
+		
+	}
+	
+	public static void createFlight() throws FileNotFoundException // this is where the user will select 
+	{
+		Scanner flightInfo = new Scanner(System.in);
+		String fNumber;
+		String fDate;
+		String fTime;
+		String aTime;
+		String dCity;
+		String desCity;
+		int seats;
+		
+		System.out.println("Please enter the following information:\nFlight Number:");
+		fNumber = flightInfo.nextLine();
+		fNumber.toUpperCase();
+		System.out.println("Flight Date: ");
+		fDate = flightInfo.nextLine();
+		System.out.println("Flight Departure Time: ");
+		fTime = flightInfo.nextLine();
+		System.out.println("Flight Arrival Time: ");
+		aTime = flightInfo.nextLine();
+		System.out.println("Flight Departing City: ");
+		dCity = flightInfo.nextLine();
+		System.out.println("Flight Destination City: ");
+		desCity = flightInfo.nextLine();
+		System.out.println("Number of Seats on Plane:");
+		seats = flightInfo.nextInt();
+		
+		Flights newf = new Flights(fNumber, fDate, fTime, aTime, dCity, desCity, seats);
+		
+		allFlights[flightCount] = newf;
+		flightCount++;
+		
+	}
+
+	public static void newReservation()
+	{
+		String flight;
+		char[][] tempChar;
+		Flights reservedFlight = null;
+		Scanner res = new Scanner(System.in);
+		System.out.println("What is your flight number?");
+		flight = res.nextLine();
+		flight.toUpperCase();
+		File check = new File(flight + ".txt");
+		
+		while(!check.exists())
+		{
+			System.out.println("That is not a valid flight nummber, please reenter");
+			flight = res.nextLine();
+			flight.toUpperCase();
+			check = new File(flight + ".txt");
+		}
+		
+		//iterates through flight objects to find desired flight
+		for(int i =0; i < allFlights.length; i++)
+		{
+			String tempF = allFlights[i].getfNumber();
+			//checks the flightnumber of each flight and see if it equals reservation
+			if(tempF.equals(flight))
+					{
+				//if it does we copy the 2d array into our temp array
+				//and copy the object
+						tempChar = allFlights[i].getSeats();
+						reservedFlight = allFlights[i];
+												
+					}
+		}
+		
+		String out = reservedFlight.printSeats();
+		int tempSeats = reservedFlight.getAvSeats();
+		reservedFlight.setAvSeats(tempSeats - 1);
+
+		
+		
+		
+
+
+		
+	}
+
+	void displayFlightChoice(String fNumber)
+	{
+		
+	}
+}

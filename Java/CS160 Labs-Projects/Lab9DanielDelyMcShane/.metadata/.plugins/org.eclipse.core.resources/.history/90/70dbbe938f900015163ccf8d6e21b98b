@@ -1,0 +1,77 @@
+
+public class Payroll {
+
+	private final int SIZE = 7;
+	
+	//arrays used in class
+	private String[] employeeID;
+	int[] hours = new int[SIZE];
+	double[] payRates = new double[SIZE];
+	double[] wages;
+	
+	
+	public Payroll()
+	{
+		wages = new double[SIZE];
+		employeeID = new String[]{"ADL7", "ARD9", "AET8", "AFG2", "AFK7", "AVN8", "AMR8"};
+	}
+	
+	public String[] getEmployeeID()
+	{
+		return employeeID;
+	}
+	
+	public int[] getHours()
+	{
+		return hours;
+	}
+	
+	public double[] getPay()
+	{
+		return payRates;
+	}
+	
+	public double[] getWages()
+	{
+		return wages;
+	}
+	
+	public void setHours(int[] hrsIn)
+	{
+		hours = ArrayOps.copyIntArray(hrsIn);
+	
+	}
+	
+	public void setRates(double[] inRates)
+	{
+		payRates = ArrayOps.copyDoubleArray(inRates);
+	}
+	
+	public void setWages()
+	{
+		double pay = 0;
+		
+		for(int i = 0; i < wages.length; i++)
+		{
+			pay = hours[i] * payRates[i];
+			wages[i] = pay;
+		}
+	}
+	
+	public void summaryOutput()
+	{
+		System.out.println("PAYROLL DATA");
+		System.out.println("------------");
+		
+		for(int i = 0; i < SIZE; i++)
+		{
+			System.out.println("Employee Id: " + employeeID[i]);
+			System.out.println("Gross Pay:   " +  wages[i]);
+		}
+		
+		System.out.println("Sum Hours: " + ArrayOps.sumArray(hours));
+		System.out.println("Sum Pay: " + ArrayOps.sumArray(payRates));
+	}
+	
+	
+}

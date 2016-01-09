@@ -1,0 +1,94 @@
+/* * <your name> * CS16000 Fall 2015 * Project 2:
+Exam Statistics * * Description: <summarize the purpose of
+the program here> */ 
+
+import java.io.*;
+import java.util.Scanner;
+import java.text.DecimalFormat;
+
+public class ExamStatistics {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		//Block of variables used in program
+		int			minScore = 9999; //set too 99 so that first loop will automatically be the min
+		int    	maxScore = 0; //set to 0 so that on first loop the first int will be the max
+		double 		sumScore = 0;
+		double 		tempScore = 0;
+		double 		averageScore;
+		int			count = 0;
+		int			countAverage = 0;
+		int			countOverSev = 0;
+		String		inFileName;
+		String 		outputMessage;
+		
+		Scanner inp = new Scanner(System.in);
+		DecimalFormat df = new DecimalFormat("###.0");
+		System.out.println("Please enter your filename: ");
+		inFileName = inp.nextLine();
+		
+		File file = new File(inFileName);
+		
+		//filename is "scores.txt"
+		while(!file.exists())
+		{
+			System.out.println("The file cannot be found");
+			System.out.println("Please enter your filename: ");
+			inFileName = inp.nextLine(); //scanner takes another name from user
+			file = new File(inFileName); // and assigns the file variable to a new object using the new name
+			//if the while loop finds the file exists it will exit loop
+		}
+		
+		Scanner inputFile = new Scanner(file); //scanner to read from file
+		
+		
+		while(inputFile.hasNextInt()) //loops if there is another integer to read
+		{								// also handles all the score tracking in the loop
+			
+			tempScore = inputFile.nextInt(); //store integer in a temporary variable
+			count++; //our count of scores in file
+			
+			if(tempScore > maxScore) // checks to see if current int is the max score
+			{
+				maxScore = (int) tempScore; //if it is assign maxScore its value
+			}
+			
+			if(tempScore < minScore) //check to see if current int is the min 
+			{
+				minScore = (int) tempScore;
+			}
+			
+			sumScore += tempScore; //add temp score to the sum	
+		}//end of while loop
+		
+		averageScore = sumScore / count; //calculate score average
+		
+		inputFile = new Scanner(file); //assign fresh scanner to file
+		
+		while(inputFile.hasNextInt())
+		{
+			tempScore = inputFile.nextInt();
+			
+			if(tempScore > averageScore) //if int is above average add to count
+			{
+				countAverage++;
+			}
+			
+			if(tempScore >= 70) //if int is above 70 add to count
+			{
+				countOverSev++;
+			}
+		}
+		
+		
+		outputMessage = "Number of scores: " + count + "\nMinimun: " + minScore + "\nMaximum" + maxScore
+				+ "\nAverage:" + df.format(averageScore) + "\nScores at or above 70: " + countOverSev + " (" +
+				(countOverSev / count) + "%)" + "\nScores above average: " + countAverage + " (" +
+				(countAverage / count) + "%)";
+		
+		System.out.println(outputMessage)
+;		
+		
+	}
+
+}

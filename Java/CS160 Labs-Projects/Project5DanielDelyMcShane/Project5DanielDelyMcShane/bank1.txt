@@ -1,0 +1,5 @@
+Shady Airport Bank
+0.2
+GBP 0.64
+CAD 1.24
+JPY 119.2

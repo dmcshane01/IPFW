@@ -1,0 +1,114 @@
+import java.awt.Color;
+import javax.swing.*;
+import java.util.Random;
+
+
+public class ColorGuessingGame {
+	
+	public static String globalColor;
+
+	public static void main(String[] args) {
+		
+		 int confirm = JOptionPane.showConfirmDialog(null, "Doyou want to play the guessing game",
+		 "Guessing Game", JOptionPane.YES_NO_OPTION);
+
+		 if(confirm == JOptionPane.YES_OPTION)
+		 {
+			 boolean loop = true;
+			 while(loop == true)
+			 {
+				 Random ranNum = new Random();
+				 int randoNumber = ranNum.nextInt(6) + 1; // assigns random number between 1 and 6
+				 
+				 Color picked = chooseColor(randoNumber);
+				 guessColor(picked);
+				 
+				 //ask if user would like to play again
+				 confirm = JOptionPane.showConfirmDialog(null, "Doyou want to play the guessing game again?",
+						 "Guessing Game", JOptionPane.YES_NO_OPTION);
+				 if(confirm == JOptionPane.NO_OPTION)
+				 {
+					 loop = false;
+				 }
+			 }
+		 }
+		 else
+		 {
+			 System.exit(0);
+		 }
+		
+	}
+	
+	public static Color chooseColor(int inpColor)
+
+	{
+	
+		Color color = new Color (0);
+		
+		switch(inpColor)
+		{
+	
+		//each case sets global string and color object to a color
+		// TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+		// 						Do something with default case
+		case(1):
+			globalColor = "blue";
+			color = Color.BLUE;
+			break;
+		case(2):
+			globalColor = "yellow";
+			color = Color.YELLOW;
+			break;
+		case(3):
+			globalColor = "red";
+			color = Color.RED;
+			break;
+		case(4):
+			globalColor = "gtren";
+			color = Color.GREEN;
+			break;
+		case(5):
+			globalColor = "orange";
+			color = Color.ORANGE;
+			break;
+		case(6):
+			globalColor = "cyan";
+			color = Color.CYAN;
+			break;
+		default:
+			System.out.println("Invalid color input");
+			System.exit(0);
+		}
+		return color;
+	}
+	
+	public static void showColor(Color colorArg)
+	{
+		JFrame frame = new JFrame("Guess this color");
+		frame.setSize(200,200);
+		frame.setLocation(300,300);
+		JPanel panel = new JPanel();
+		panel.setBackground(colorArg);
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void guessColor(Color colorArg)
+
+	{
+		showColor(colorArg);
+		String inp = JOptionPane.showInputDialog("Choose the name of the color you see:\nbrown\red\ngreen\blue\nmagenta\ncyan\nblack\norange\nyellow\nbeige");
+		confirmGuess(inp);
+	}
+	
+	public static void confirmGuess(String guess)
+	{
+		if(guess.equals(globalColor))
+		{
+			JOptionPane.showMessageDialog(null,"You Win!!");
+		}
+		else
+			JOptionPane.showMessageDialog(null,"You Lose!");
+	}	
+}

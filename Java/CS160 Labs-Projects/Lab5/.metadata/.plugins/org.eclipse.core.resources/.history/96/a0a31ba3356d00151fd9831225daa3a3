@@ -1,0 +1,42 @@
+import java.util.Scanner;
+import java.text.DecimalFormat;
+
+
+public class MassHandler {
+
+	public static void main(String[] args) {
+	 
+		DecimalFormat format = new DecimalFormat("#0.00");
+		Scanner input = new Scanner(System.in);
+		System.out.println("What is the objects name?");
+		
+		String obj = input.nextLine();
+		
+		System.out.println("What is the mass of " + obj + "?");
+		
+		double mass = input.nextDouble();
+		
+		double weight = mass * 9.8;
+		
+		if(weight > 1000)
+		{
+			System.out.println(obj + " is too heavy!");
+		}
+		else if (weight < 10)
+		{
+		System.out.println(obj + " is too light!");
+		}
+		else
+			System.out.println(obj + "weighs " + );
+		
+		String inppput = "asdoiisa";
+		
+		for(int i = 0; i < inppput.length(); i++)
+		{
+			System.out.print(inppput.charAt(inppput.length() - 1 - i));
+		}
+		
+
+	}
+
+}

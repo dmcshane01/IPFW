@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.Scanner;
+public class ExamStatistics {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		//Block of variables used in program
+		double		minScore;
+		double     	maxScore;
+		double 		sumScores;
+		double 		averageScore;
+		String		inFileName;
+		
+		Scanner inp = new Scanner(System.in);
+		System.out.println("Please enter your filename: ");
+		
+	
+		
+		inFileName = inp.nextLine();
+		File file = new File(inFileName);
+		
+		//filename is "scores.txt"
+		while(!file.exists())
+		{
+			System.out.println("The file cannot be found");
+			System.out.println("Please enter your filename: ");
+			inFileName = inp.nextLine();
+			file.renameTo(new File(inFileName));
+		
+		}
+		
+		Scanner inputFile = new Scanner(file);
+		
+		while(inputFile.hasNextInt())
+		{
+			System.out.println(inputFile.nextInt());
+		}
+		
+		
+		
+	}
+
+}

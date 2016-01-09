@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Payroll pay = new Payroll();
+		Scanner in = new Scanner(System.in);
+		String[] emp = pay.getEmployeeID();
+		int[] hours = new int[7];
+		double[] payRate = new double[7];
+		
+		int hoursIn;
+		double payIn;
+	
+		for(String each : emp)
+		{
+			int index = 0;
+			System.out.println("Enter the hours worked by Employee " + each +": ");
+			hoursIn = in.nextInt();
+			hours[index] = hoursIn;
+			
+			System.out.println("Enter the hourly pay rate for Employee " + each + ": ");
+			payIn = in.nextDouble();
+			payRate[index] = payIn;
+			index++;
+		}
+		
+		pay.setHours(hours);
+		pay.setRates(payRate);
+		pay.setWages();
+		pay.toString();
+		
+	}
+
+}

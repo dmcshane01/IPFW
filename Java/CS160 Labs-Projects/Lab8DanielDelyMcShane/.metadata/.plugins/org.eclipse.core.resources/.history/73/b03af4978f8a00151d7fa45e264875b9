@@ -1,0 +1,53 @@
+
+public class shapes {
+
+	public static void main(String[] args)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	
+	public class Circle
+	{
+		double radius;
+		
+		Circle() //default constructor
+		{
+			
+		}
+		
+		Circle(double r) //constructor sets double parameter as radius of circle
+		{
+			
+		}
+		
+		public void setRadius(double r)
+		{
+			
+		}
+		
+		public double getRadius()
+		{
+			return radius;
+		}
+		
+		public double getArea()
+		{
+		
+			return area; //change
+		}
+		
+		public double getDiameter()
+		{
+			return diameter;
+		}
+		
+		public double getCircumference()
+		{
+			return circumference;
+		}
+		
+	}
+	
+
+}

@@ -1,0 +1,70 @@
+import java.awt.Color;
+import javax.swing.*;
+import java.util.Random;
+
+
+public class ColorGuessingGame {
+	
+	public static String globalColor;
+
+	public static void main(String[] args) {
+
+		Random ranNum = new Random();
+
+	}
+	
+	public static Color chooseColor(int inpColor)
+
+	{
+	
+		Color color = new Color (0);
+		
+		switch(inpColor)
+		{
+	
+		//each case sets global string and color object to a color
+		// TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+		// 						Do something with default case
+		case(1):
+			globalColor = "blue";
+			color = Color.BLUE;
+		case(2):
+			globalColor = "yellow";
+			color = Color.YELLOW;
+		case(3):
+			globalColor = "red";
+			color = Color.RED;
+		case(4):
+			globalColor = "gtren";
+			color = Color.GREEN;
+		case(5):
+			globalColor = "orange";
+			color = Color.ORANGE;
+		case(6):
+			globalColor = "cyan";
+			color = Color.CYAN;
+		default:
+			System.out.println("Invalid color input");
+			System.exit(0);
+		}
+		
+		return color;
+	}
+	
+	public static void showColor(Color colorArg)
+	{
+		JFrame frame = new JFrame("Guess this color");
+		frame.setSize(200,200);
+		frame.setLocation(300,300);
+		JPanel panel = new JPanel();
+		panel.setBackground(colorArg);
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public static void guessColor(Color colorArg)
+	{
+		
+	}
+}

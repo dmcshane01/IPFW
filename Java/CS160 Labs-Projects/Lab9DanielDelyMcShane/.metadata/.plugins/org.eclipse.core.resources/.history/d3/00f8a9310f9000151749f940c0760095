@@ -1,0 +1,18 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Payroll pay = new Payroll();
+		
+		String[] emp = pay.getEmployeeID();
+		
+		for(String each : emp)
+		{
+			System.out.println(each);
+		}
+		
+		
+	}
+
+}

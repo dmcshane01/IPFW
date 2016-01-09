@@ -1,0 +1,50 @@
+import java.util.Scanner;
+public class PatternMaker {
+
+	public static void main(String[] args) {
+
+		String 	pattern;
+		int 	numLines;
+		
+		Scanner inp = new Scanner(System.in);
+		
+		System.out.println("Would you like a square or rectangle pattern");
+		
+		pattern = inp.nextLine();
+		pattern.toLowerCase(); //change to lower case so we can verify it
+		
+		System.out.println("How many lines would you like?");
+		
+		numLines = inp.nextInt();
+
+		//verifies user input
+		if((pattern.equals("square") == false) && (pattern.equals("rectangle") == false)) // if it isn't either of these two then buzz off
+		{
+			System.out.println("buzz off");
+			System.exit(0);
+		}
+		
+		//This statement prints out the pattern depending on user input
+		if(pattern.equals("rectangle"))
+		{
+			for(int i = 0; i < numLines; i++)
+			{
+				System.out.println("###");
+			}	
+		}
+		else
+		{
+			for(int i = 0; i < numLines; i++)
+			{
+				for(int j = 0; j < numLines; j++)
+				{
+					System.out.print("$");
+				}
+				System.out.println(); //create newline after each row of square has been printed
+			}
+			
+		}
+	
+	}
+
+}

@@ -1,0 +1,9 @@
+
+public class ArrayOps {
+
+	public static int[] copyIntArray(int[] toCopy)
+	{
+		int[] copied = new int[toCopy.length];
+		return copied;
+	}
+}

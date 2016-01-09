@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Payroll pay = new Payroll();
+		Scanner in = new Scanner(System.in);
+		String[] emp = pay.getEmployeeID();
+		
+		int hoursIn;
+	
+		for(String each : emp)
+		{
+			System.out.println("Enter the hours worked by Employee " + each +": ");
+			hoursIn = in.nextInt();
+		}
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+import javax.swing.JOptionPane;
+
+public class InputValidation {
+	public static void main(String args[]){
+
+		String word = JOptionPane.showInputDialog(null, "Enter your word, completely legitimate human", "Legitimate human program");
+	}
+
+}

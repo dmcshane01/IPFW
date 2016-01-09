@@ -1,0 +1,265 @@
+/*
+ * Daniel DelyMcShane
+ * CS160
+ * Project 4
+ * December 9, 2015
+ * 
+ * This program uses 3 classes, flights passenger and main, to simulate a flight reservation
+ * service. It prints out flight charts into a txt file
+ */
+
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.*;
+
+public class Main {
+	/*
+	 * Declaring these variables in objects outside of the main function 
+	 * so that the whole main class can access them
+	 */
+	//TODO
+	//TODO
+	//MAKE SURE YOU CLOSE ALL THE SCANNERS AND PRINTWRITERS and WHATEVERS
+	
+	
+	//keeps track of position in array of flights
+	static int flightCount = 0;
+	static int passCount = 0;
+	
+	//arrays used to store fligth and passenger obj
+	static Flights[] allFlights = new Flights[100];//stores 100 flights
+	static Passenger[] allPass = new Passenger[100];
+	
+	public static void main(String[] args) throws FileNotFoundException {
+	
+		boolean cont = true;
+		Scanner select = new Scanner(System.in);
+		int choice;
+		String temp;
+		
+		while(cont)
+		{
+			System.out.print("1. Add New Flight\n2. Make a new Reservation\n3. Displayy Passengers seats map\n4. List information of all flights"
+					+ "\n5.List all passenger reservations for all flights\n6. List all pasenger reservations for a specific flight\n7. Exit the program");
+		
+			choice = select.nextInt();
+			
+			switch(choice)
+			{
+			case(1):
+				createFlight();
+				break;
+			case(2):
+				newReservation();
+				break;
+			case(3):
+				System.out.println("Please enter the flight number");
+				temp = select.nextLine();
+				displayFlightChoice(temp);
+				break;
+			case(4):
+				displayAllFlights();
+				break;
+			case(5):
+				displayAllReservations();
+				break;
+			case(6):
+				System.out.println("Please enter the flight number");
+				break;
+			case(7):
+				cont = false;
+				break;
+			default:
+				System.out.println("You've made an invalid selection, please enter again");
+				break;
+				
+			}
+			
+			
+		}
+		
+	}
+	
+	public static void createFlight() throws FileNotFoundException // this is where the user will select 
+	{
+		Scanner flightInfo = new Scanner(System.in);
+		String fNumber;
+		String fDate;
+		String fTime;
+		String aTime;
+		String dCity;
+		String desCity;
+		int seats;
+		
+		//This block collects flight data from user
+		System.out.println("Please enter the following information:\nFlight Number:");
+		fNumber = flightInfo.nextLine();
+		fNumber.toUpperCase();
+		System.out.println("Flight Date: ");
+		fDate = flightInfo.nextLine();
+		System.out.println("Flight Departure Time: ");
+		fTime = flightInfo.nextLine();
+		System.out.println("Flight Arrival Time: ");
+		aTime = flightInfo.nextLine();
+		System.out.println("Flight Departing City: ");
+		dCity = flightInfo.nextLine();
+		System.out.println("Flight Destination City: ");
+		desCity = flightInfo.nextLine();
+		System.out.println("Number of Seats on Plane:");
+		seats = flightInfo.nextInt();
+		
+		//initialize Flight object using user data
+		Flights newf = new Flights(fNumber, fDate, fTime, aTime, dCity, desCity, seats);
+		
+		//adds the flight to array object, and increments the array counter
+		allFlights[flightCount] = newf;
+		flightCount++;
+		
+	}
+
+	public static void newReservation()
+	{
+		String passID;
+		String seatNum;
+		String name;
+		String flight;
+		char[][] tempChar;
+		Flights reservedFlight = null;
+		Scanner res = new Scanner(System.in);
+		System.out.println("What is your flight number?");
+		flight = res.nextLine();
+		flight.toUpperCase();
+		File check = new File(flight + ".txt");
+		
+		while(!check.exists())
+		{
+			System.out.println("That is not a valid flight nummber, please reenter");
+			flight = res.nextLine();
+			flight.toUpperCase();
+			check = new File(flight + ".txt");
+		}
+		
+		System.out.println("What is your name?");
+		name = res.nextLine();
+		System.out.println("What is your passenger ID");
+		passID = res.nextLine();
+		System.out.println("What is your seat Number?(Must be number then letter ex: 1A)");
+		seatNum = res.nextLine();
+		
+		//create passenger object using user info, then store in our array
+		Passenger newPass = new Passenger(passID, flight, seatNum, name);
+		allPass[passCount] = newPass;
+		passCount++; //incremement to new spot in array for next passenger object
+		
+		//iterates through flight objects to find desired flight
+		for(int i = 0; i < allFlights.length; i++)
+		{
+			String tempF = ""; //initilize string to empty
+			
+			
+			if(allFlights[i] != null) //check to see if the current index in array has an object so that we don't throw a nullPointer exception
+			{
+			tempF = allFlights[i].getfNumber(); //if it's not null then we get the flight number and store it in our temp string
+			}
+			
+			//checks the flightnumber of each flight and see if it equals reservation
+			if(tempF.equals(flight))
+					{
+				//if it does we copy the 2d array into our temp array
+				//and copy the object
+						tempChar = allFlights[i].getSeats();
+						reservedFlight = allFlights[i];
+												
+					}
+		}
+		
+		//we get the string to output the seat pattern then print it
+		String out = reservedFlight.printSeats();
+		System.out.println(out);
+		
+		//tempseats holds the amount of seats in the flight
+		int tempSeats = reservedFlight.getAvSeats();
+		//we then set the seats of the flight object to one less than it was before,  because seat is now reserved
+		reservedFlight.setAvSeats(tempSeats - 1);
+		
+		/*
+		 * TODO mark spot in array with an X!!
+		 * 
+		 */
+	}
+
+	public static void displayFlightChoice(String fNumber)
+	{
+		fNumber.toUpperCase();
+		char[][] temp = null;
+		
+		String tempString = "";
+		for(int i = 0; i < allFlights.length; i++)
+		{
+		
+			tempString = allFlights[i].getfNumber();
+			if(fNumber.equals(tempString))
+			{
+				temp = allFlights[i].getSeats();
+				break;
+			}
+		}
+		
+		for(int i = 0; i < temp.length; i++)
+		{
+			System.out.print(temp[i][0] + "\t"); //Prints the row number
+			
+			for(int j = 1; j < temp[i].length; j++)
+			{
+				System.out.print(temp[i][j] + " ");
+			}
+		}	
+	} 
+	
+	public static void displayAllFlights()
+	{
+		//null array to copy flight info into
+		char[][] temp = null;
+		String tempf;
+		
+		for(int i = 0; i < allFlights.length; i++)
+		{
+			//make sure that object in array isn't empty to avoid null pointer exception
+			if(allFlights[i] != null)
+			{
+			tempf = allFlights[i].printSeats();
+			System.out.println(tempf);
+			}
+		}
+		
+	}
+	
+	public static void displayAllReservations()
+	{
+		String temp;
+		for(int i = 0; i < allPass.length; i++)
+		{
+			if(allPass[i] != null)
+			{
+				temp = allPass[i].showInfo();
+				System.out.println(temp);
+			}
+		}
+	}
+	
+	public static void displayPassForFlight(String fNum)
+	{
+		String temp;
+		for(int i = 0; i < allPass.length; i++)
+		{
+			if(allPass[i] != null)
+			{
+				if(allPass[i].getfNumber().equalsIgnoreCase(fNum))
+				{
+					temp = allPass[i].showInfo();
+					System.out.println(temp);
+				}
+			}
+		}
+	}
+}

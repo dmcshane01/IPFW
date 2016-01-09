@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.Scanner;
+public class ExamStatistics {
+
+	public static void main(String[] args) {
+		//Block of variables used in program
+		double		minScore;
+		double     	maxScore;
+		double 		sumScores;
+		double 		averageScore;
+		String		inFileName;
+		
+		Scanner filename = new Scanner(System.in);
+		System.out.println("Please enter your filename: ");
+		
+		inFileName = filename.nextLine();
+		
+		//filename is "scores.txt"
+		File file = new File(inFileName);
+		if (!file.exists())
+		{
+			System.out.println("The file cannot be found");
+		}
+		
+		
+		
+	}
+
+}

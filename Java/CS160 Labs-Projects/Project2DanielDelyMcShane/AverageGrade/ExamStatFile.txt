@@ -1,0 +1,6 @@
+Number of scores: 16
+Minimun: 40
+Maximum: 99
+Average: 77.8
+Scores at or above 70: 12 (75.0%)
+Scores above average: 9 (56.2%)

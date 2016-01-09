@@ -1,0 +1,11 @@
+
+public class ExamStatistics {
+
+	//Block of variables used in program
+		double		minScore;
+		double     	maxScore;
+		double 		sumScores;
+		double 		averageScore;
+		String		inFileName;
+		
+}

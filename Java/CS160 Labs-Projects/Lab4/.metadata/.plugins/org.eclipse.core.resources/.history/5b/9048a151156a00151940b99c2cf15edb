@@ -1,0 +1,57 @@
+import javax.swing.JOptionPane;
+
+public class InputValidation {
+	public static void main(String args[]){
+
+		String word = JOptionPane.showInputDialog(null, "Enter your word, completely legitimate human", "Legitimate human program", JOptionPane.INFORMATION_MESSAGE);
+		
+		/*
+		if (word == null)
+		{
+			JOptionPane.showMessageDialog(null, "Your input was null, terminating program");
+			System.exit(0);
+		}
+		if (word.equals(""))
+		{
+			JOptionPane.showMessageDialog(null, "Your input was null, terminating program");
+			System.exit(0);
+		}
+		*/
+		
+		
+		if (word.equals("") || word == null)
+		{
+			JOptionPane.showMessageDialog(null, "Your input was null, terminating program");
+			System.exit(0);
+		}
+		
+		String word2 = JOptionPane.showInputDialog(null, "Enter another word, completely legitimate human", "Legitimate human program", JOptionPane.INFORMATION_MESSAGE);
+		
+		
+		if (word2.equals("") || word2 == null)
+		{
+			JOptionPane.showMessageDialog(null, "Your input was null, terminating program");
+			System.exit(0);
+		}
+		else if (word2.equals(word))
+		{
+			JOptionPane.showMessageDialog(null, "Your second input was the same as your first");
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Your inputs were not equal");
+		} //end of if block
+		
+		if(word.equals("Banana Bread") && word2.compareTo("ostrich") > 0)
+		{
+			JOptionPane.showMessageDialog(null, "You have been validated and will be debriefed soon.");
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "
+		}
+		
+		
+	}
+
+}

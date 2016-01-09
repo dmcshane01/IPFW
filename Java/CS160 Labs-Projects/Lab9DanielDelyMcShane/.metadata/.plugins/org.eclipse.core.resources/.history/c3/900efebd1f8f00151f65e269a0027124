@@ -1,0 +1,24 @@
+
+public class ArrayOps {
+
+	public static int[] copyIntArray(int[] toCopy)
+	{
+		int[] copied = new int[toCopy.length];
+		
+		for(int i = 0; i < toCopy.length; i++)
+		{
+			copied[i] = toCopy[i];
+		}
+		return copied;
+	}
+	
+	public static double[] copyDoubleArray(double[] toCopy)
+	{
+		double[] copied = new double[toCopy.length];
+		for(int i = 0; i < toCopy.length; i++)
+		{
+			copied[i] = toCopy[i];
+		}
+		return copied;
+	}
+}

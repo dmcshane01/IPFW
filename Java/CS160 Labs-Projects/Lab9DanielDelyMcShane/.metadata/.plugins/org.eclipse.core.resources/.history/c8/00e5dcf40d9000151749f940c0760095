@@ -1,0 +1,28 @@
+
+public class Payroll {
+
+	private final int SIZE = 7;
+	
+	//arrays used in class
+	private String[] employeeID;
+	int[] hours = new int[SIZE];
+	double[] payRates = new double[SIZE];
+	double[] wages;
+	
+	
+	public Payroll()
+	{
+		wages = new double[SIZE];
+		employeeID = new String[]{"ADL7", "ARD9", "AET8", "AFG2", "AFK7", "AVN8", "AMR8"};
+	}
+	
+	public String[] getEmployeeID()
+	{
+		return employeeID;
+	}
+	
+	public int[] getHours()
+	{
+		return hours;
+	}
+}
