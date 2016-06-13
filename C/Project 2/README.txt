@@ -1,0 +1,2 @@
+To compile: Navigate to the directory that contains the source file. enter: gcc DelyMcShane_Daniel_Project2.c -o Project2  .  Then ./Project2 to execute
+to use: follow instructions on menu to add/delete/display records. Program automatically creates a .txt output of student records upon termination.
