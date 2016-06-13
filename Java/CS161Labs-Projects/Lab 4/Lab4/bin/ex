@@ -1,0 +1,100 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class CheckRadioButton extends JFrame
+{
+  	private JCheckBox blackCB, whiteCB;
+  	private JRadioButton redRB, greenRB, blueRB;
+  	private ButtonGroup ColorSelectBGroup;
+    private JPanel checkboxPanel, radioPanel;
+    
+  	private final int WINDOW_WIDTH = 200;  
+    private final int WINDOW_HEIGHT = 150; 
+
+	public CheckRadioButton()
+  	{
+		setTitle("Check Box & Radio Button");
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buildGUI();
+		setVisible(true);
+  	}
+	
+   private void buildGUI()
+   {
+      setLayout(new GridLayout(1, 2));
+		
+      blackCB = new JCheckBox("Black");
+      whiteCB = new JCheckBox("White");
+
+      checkboxPanel = new JPanel();
+      checkboxPanel.add(blackCB);
+      checkboxPanel.add(whiteCB);
+
+      redRB = new JRadioButton("Red");
+      greenRB = new JRadioButton("Green");
+      blueRB = new JRadioButton("Blue");
+
+      radioPanel = new JPanel();
+      radioPanel.add(redRB);
+      radioPanel.add(greenRB);
+      radioPanel.add(blueRB);
+
+      ColorSelectBGroup = new ButtonGroup();
+      ColorSelectBGroup.add(redRB);
+      ColorSelectBGroup.add(greenRB);
+      ColorSelectBGroup.add(blueRB);   
+
+      add(checkboxPanel);
+      add(radioPanel);
+      
+      blackCB.addItemListener(new CheckBoxListener());
+      whiteCB.addItemListener(new CheckBoxListener());
+      
+      redRB.addActionListener(new 
+						RadioButtonListener());
+      greenRB.addActionListener(new 
+						RadioButtonListener());
+      blueRB.addActionListener(new 
+						RadioButtonListener());
+	}
+
+
+   private class CheckBoxListener 
+implements ItemListener
+   {
+      public void itemStateChanged(ItemEvent e)
+      {
+    	  	if (blackCB.isSelected() && 
+						whiteCB.isSelected())
+          checkboxPanel.setBackground(Color.lightGray);
+    	  else if (blackCB.isSelected())
+	  checkboxPanel.setBackground(Color.black);
+    	  else if (whiteCB.isSelected())
+    		  checkboxPanel.setBackground(Color.white);
+     whiteCB.setBackground(checkboxPanel.getBackground());
+      blackCB.setBackground(checkboxPanel.getBackground());
+      }
+   }
+
+   private class RadioButtonListener 
+implements ActionListener
+   {
+	   public void actionPerformed(ActionEvent e)
+	   {
+		   if(e.getSource() == redRB){
+			   radioPanel.setBackground(Color.green);
+		   }
+		   else if(e.getSource() == greenRB)
+			   radioPanel.setBackground(Color.blue);
+		   else if(e.getSource() == blueRB)
+			   radioPanel.setBackground(Color.red);
+	   }
+   }
+
+	public static void main(String[] args)
+	{
+		new CheckRadioButton();
+	}
+}
