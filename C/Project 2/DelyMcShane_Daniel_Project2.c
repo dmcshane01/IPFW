@@ -133,7 +133,7 @@ void deleteRecord(char *name)
 		
 }
 
-//findName takes a string as an argument and checks to see if there is a matching record in the list
+//findName takes a string as an argument and checks to see if there is a matching record in the list using sequential search
 int  findName(char *nameFind)
 {
 
