@@ -14,7 +14,7 @@ public class CoinCollector {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		// read map from file for testing
+		// read map from file for testingcd 
 		double[][] map = new double[6][7];
 		Scanner s = new Scanner(new File("map.txt"));
 		for (int i = 0; i < map.length; i++) {
@@ -91,9 +91,9 @@ public class CoinCollector {
 				// if slot above has more coins so far use that
 				if (up > left) {
 					if (addFlag) {
-						coins[i][j] = coins[i - 1][j] + 1;
+						result[i][j] = result[i - 1][j] + 1;
 					} else {
-						coins[i][j] = coins[i - 1][j];
+						result[i][j] = result[i - 1][j];
 					}
 				}
 				//otherwise either the left has a greater value. or netieh has a value
@@ -101,10 +101,10 @@ public class CoinCollector {
 					//addFlag was set from left add 1
 					if(addFlag)
 					{
-						coins[i][j] = coins[i][j-1] +1;
+						result[i][j] = result[i][j-1] +1;
 					}
 					else{
-						coins[i][j] = coins[i][j-1];
+						result[i][j] = result[i][j-1];
 					}
 					
 				}
@@ -115,8 +115,10 @@ public class CoinCollector {
 			}
 		}
 
-		printMap(result);
+		printMap(coins);
 		System.out.println("\n\n\n");
+
+		printMap(result);
 
 		return result[n - 1][m - 1];
 	}
