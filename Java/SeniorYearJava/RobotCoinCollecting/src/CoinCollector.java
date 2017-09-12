@@ -1,3 +1,4 @@
+
 /*
  * Daniel DelyMcShane
  * CS486
@@ -22,6 +23,18 @@ public class CoinCollector {
 			}
 		}
 
+		// get result of efficient algorithm for max coins
+		double result = maxCoins(map);
+		System.out.println("Efficient algorithm: " + result);
+		s.close();
+
+		double[][] genMap = generateRandomMap(6, 7);
+
+		// printMap(genMap);
+	}
+
+	// utility method to print out map
+	public static void printMap(double[][] map) {
 		// print out map
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -29,21 +42,88 @@ public class CoinCollector {
 			}
 			System.out.println();
 			System.out.println("---------------------------------------");
-
 		}
-
-		// get result of efficient algorithm for max coins
-		double result = maxCoins(map);
-		System.out.println("Efficient algorithm: " + result);
-		s.close();
-
-		generateRandomMap(6, 6);
-
-		double[][] genMap = generateRandomMap(6, 7);
 	}
 
-	// n = row, m = column
+	// efficient algorithm to determine the max number of coins that can be
+	// picked up
 	public static double maxCoins(double[][] coins) {
+
+		int n = coins.length;
+		int m = coins[0].length;
+		// initialize result matrix to 0
+		double[][] result = new double[n][m];
+
+		// if first is a coin add 1, otherwise leave as 0
+		if (coins[1][1] > 0) {
+			result[1][1] = 1;
+		}
+
+		for (int j = 2; j < m; j++) {
+
+			if (coins[1][j] > 0) {
+				result[1][j] = result[1][j - 1] + 1;
+			} else {
+				result[1][j] = result[1][j - 1];
+			}
+		}
+
+		for (int i = 2; i < n; i++) {
+
+			if (coins[i][1] > 0) {
+				result[i][1] = result[i - 1][1] + 1;
+			} else {
+				result[i][1] = result[i - 1][1];
+			}
+
+			for (int j = 2; j < m; j++) {
+
+				// get value to above and to left
+				double up = coins[i - 1][j];
+				double left = coins[i][j - 1];
+				boolean addFlag = false;
+
+				// if coin in current slot set add flag
+				if (coins[i][j] > 0) {
+					addFlag = true;
+				}
+
+				// if slot above has more coins so far use that
+				if (up > left) {
+					if (addFlag) {
+						coins[i][j] = coins[i - 1][j] + 1;
+					} else {
+						coins[i][j] = coins[i - 1][j];
+					}
+				}
+				//otherwise either the left has a greater value. or netieh has a value
+				else{
+					//addFlag was set from left add 1
+					if(addFlag)
+					{
+						coins[i][j] = coins[i][j-1] +1;
+					}
+					else{
+						coins[i][j] = coins[i][j-1];
+					}
+					
+				}
+
+				// result[i][j] = Math.max(result[i - 1][j] + coins[i][j],
+				// result[i][j - 1] + coins[i][j]);
+
+			}
+		}
+
+		printMap(result);
+		System.out.println("\n\n\n");
+
+		return result[n - 1][m - 1];
+	}
+
+	// efficient algorithm to determine the maximum value of coins that can be
+	// picked up
+	public static double maxValue(double[][] coins) {
 
 		int n = coins.length;
 		int m = coins[0].length;
@@ -62,18 +142,6 @@ public class CoinCollector {
 				result[i][j] = Math.max(result[i - 1][j] + coins[i][j], result[i][j - 1] + coins[i][j]);
 
 			}
-		}
-
-		System.out.println("\n========================\n");
-		System.out.println("Result Matrix of Efficient Algorithm:\n");
-		for (int i = 0; i < result.length; i++) {
-
-			for (int j = 0; j < result[i].length; j++) {
-				System.out.print(result[i][j] + " | ");
-
-			}
-			System.out.println();
-			System.out.println("---------------------------------------");
 		}
 
 		return result[n - 1][m - 1];
