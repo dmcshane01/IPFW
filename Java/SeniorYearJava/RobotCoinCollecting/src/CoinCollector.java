@@ -12,9 +12,10 @@ import java.util.Random;
 
 public class CoinCollector {
 
+	public static int counter = 0;
 	public static void main(String[] args) throws FileNotFoundException {
 
-		// read map from file for testingcd 
+		// read map from file for testing
 		double[][] map = new double[6][7];
 		Scanner s = new Scanner(new File("map.txt"));
 		for (int i = 0; i < map.length; i++) {
@@ -28,7 +29,18 @@ public class CoinCollector {
 		System.out.println("Efficient algorithm: " + result);
 		s.close();
 
-		double[][] genMap = generateRandomMap(6, 7);
+		 map = generateRandomMap(6, 7);
+		 maxCoins(map);
+		 maxValue(map);
+		 
+		 printMap(map);
+			System.out.println("GREEDY COIN VALUE:  " + greedyMaxValue(map, map.length-1, map[0].length-1));
+			System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length-1, map[0].length-1));
+			
+			printMap(map);
+
+
+
 
 		// printMap(genMap);
 	}
@@ -37,11 +49,12 @@ public class CoinCollector {
 	public static void printMap(double[][] map) {
 		// print out map
 		for (int i = 0; i < map.length; i++) {
+			System.out.print("\t\tRow " + i + ": ");
 			for (int j = 0; j < map[i].length; j++) {
-				System.out.print(map[i][j] + " | ");
+				System.out.print(map[i][j] + "|");
 			}
 			System.out.println();
-			System.out.println("---------------------------------------");
+			// System.out.println("\t\t ----------------------------");
 		}
 	}
 
@@ -59,6 +72,7 @@ public class CoinCollector {
 			result[1][1] = 1;
 		}
 
+		// set first row
 		for (int j = 2; j < m; j++) {
 
 			if (coins[1][j] > 0) {
@@ -70,6 +84,7 @@ public class CoinCollector {
 
 		for (int i = 2; i < n; i++) {
 
+			// set column i
 			if (coins[i][1] > 0) {
 				result[i][1] = result[i - 1][1] + 1;
 			} else {
@@ -96,17 +111,25 @@ public class CoinCollector {
 						result[i][j] = result[i - 1][j];
 					}
 				}
-				//otherwise either the left has a greater value. or netieh has a value
-				else{
-					//addFlag was set from left add 1
-					if(addFlag)
-					{
-						result[i][j] = result[i][j-1] +1;
+				// otherwise either the left has a greater value. or netieh has
+				// a value
+				else {
+					// addFlag was set from left add 1
+					if (addFlag) {
+						result[i][j] = result[i][j - 1] + 1;
+					} else {
+						// if the slot to the left is greater than the one above
+						// use that
+						if (result[i][j - 1] > result[i - 1][j]) {
+							result[i][j] = result[i][j - 1];
+							// otherwise they're both 1 or 0 so use the slot to
+							// the left
+						} else {
+							result[i][j] = result[i - 1][j];
+						}
+
 					}
-					else{
-						result[i][j] = result[i][j-1];
-					}
-					
+
 				}
 
 				// result[i][j] = Math.max(result[i - 1][j] + coins[i][j],
@@ -115,11 +138,14 @@ public class CoinCollector {
 			}
 		}
 
+		/*
+		System.out.println("Input map:");
 		printMap(coins);
 		System.out.println("\n\n\n");
-
+		System.out.println("Result Map: ");
 		printMap(result);
 
+*/
 		return result[n - 1][m - 1];
 	}
 
@@ -146,6 +172,14 @@ public class CoinCollector {
 			}
 		}
 
+		/*
+		System.out.println("Input map:");
+		printMap(coins);
+		System.out.println("\n\n\n");
+		System.out.println("Result Map: ");
+		printMap(result);
+		*/
+
 		return result[n - 1][m - 1];
 	}
 
@@ -167,4 +201,82 @@ public class CoinCollector {
 		return map;
 	}
 
+	/*
+	public static double greedyMaxCoin(double[][] coins, int row, int column){
+		
+		if(row == 0 || column == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			if(coins[row][column] > 0)
+			{
+				
+				return 1 + Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1));
+			}
+			else
+			{
+				counter++;
+				System.out.println("COUNTER:  " + counter);
+			return greedyMaxCoin(coins, row-1, column) + greedyMaxCoin(coins, row, column - 1);
+			}
+		}
+		
+	}
+	 */
+	
+	public static double greedyMaxCoin(double[][] coins, int row, int column){
+		
+		//base case: return 0 
+		if(row == 0 || column == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			//if the current slot has a coin in it add 1 and call the max functionon both possible directions
+			if(coins[row][column] > 0)
+			{
+				System.out.println("COUNTER PING");
+				//System.out.println("row: " + row + "column: " + column);
+				return 1 + Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1));
+
+			}
+			//otherwise just return the max of both previous paths
+			else
+			{
+				return Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1));
+
+			}
+			//System.out.println(Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1)));
+		}
+	}
+	
+public static double greedyMaxValue(double[][] coins, int row, int column){
+		
+		//base case: return 0 
+		if(row == 0 || column == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			//if the current slot has a coin in it add 1 and call the max functionon both possible directions
+			if(coins[row][column] > 0)
+			{
+				System.out.println("VALUE PING");
+				return coins[row][column] + Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1));
+
+			}
+			//otherwise just return the max of both previous paths
+			else
+			{
+				return Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1));
+
+			}
+			//System.out.println(Math.max(greedyMaxCoin(coins, row-1, column), greedyMaxCoin(coins, row, column- 1)));
+		}
+	}
+	
 }
