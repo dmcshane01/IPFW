@@ -16,10 +16,9 @@ public class CoinCollector {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		double[][] map = new double[6][7];
 		/*
 		// read map from file for testing
-		
+		double[][] map = new double[6][7];
 		Scanner s = new Scanner(new File("map.txt"));
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -27,25 +26,21 @@ public class CoinCollector {
 			}
 		}
 
-
+*/
 		// get result of efficient algorithm for max coins
 		double result = maxCoins(map);
 		System.out.println("Efficient algorithm: " + result);
 		s.close();
-		*/
 
-		//create a random map
 		map = generateRandomMap(6, 7);
-		
-		System.out.println("RANDOMLY GENERATED MAP: ");
-		printMap(map);
-		//get results of efficient algorithms
 		maxCoins(map);
 		maxValue(map);
 
-		System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length - 1, map[0].length - 1));
+		printMap(map);
 		System.out.println("GREEDY COIN VALUE:  " + greedyMaxValue(map, map.length - 1, map[0].length - 1));
+		System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length - 1, map[0].length - 1));
 
+		printMap(map);
 
 		// printMap(genMap);
 	}

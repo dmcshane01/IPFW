@@ -37,15 +37,13 @@ public class CoinCollector {
 		//create a random map
 		map = generateRandomMap(6, 7);
 		
-		System.out.println("RANDOMLY GENERATED MAP: ");
-		printMap(map);
+		System.out.println("RANDOMLY GENERATED MAP: ")
 		//get results of efficient algorithms
 		maxCoins(map);
 		maxValue(map);
 
-		System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length - 1, map[0].length - 1));
 		System.out.println("GREEDY COIN VALUE:  " + greedyMaxValue(map, map.length - 1, map[0].length - 1));
-
+		System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length - 1, map[0].length - 1));
 
 		// printMap(genMap);
 	}
