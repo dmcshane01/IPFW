@@ -18,35 +18,52 @@ public class CoinCollector {
 
 		double[][] map = new double[6][7];
 		/*
-		// read map from file for testing
-		
-		Scanner s = new Scanner(new File("map.txt"));
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				map[i][j] = s.nextInt();
-			}
-		}
+		 * // read map from file for testing
+		 * 
+		 * Scanner s = new Scanner(new File("map.txt")); for (int i = 0; i <
+		 * map.length; i++) { for (int j = 0; j < map[i].length; j++) {
+		 * map[i][j] = s.nextInt(); } }
+		 * 
+		 * 
+		 * // get result of efficient algorithm for max coins double result =
+		 * maxCoins(map); System.out.println("Efficient algorithm: " + result);
+		 * s.close();
+		 */
 
+		// create a random map
+		map = generateRandomMap(10, 10);
 
-		// get result of efficient algorithm for max coins
-		double result = maxCoins(map);
-		System.out.println("Efficient algorithm: " + result);
-		s.close();
-		*/
-
-		//create a random map
-		map = generateRandomMap(6, 7);
-		
 		System.out.println("RANDOMLY GENERATED MAP: ");
 		printMap(map);
-		//get results of efficient algorithms
+
+		// execute efficient max coin algorithm and calculate run time
+		long startTime = System.nanoTime();
 		maxCoins(map);
+		long stopTime = System.nanoTime();
+		long efficientCoin = stopTime - startTime;
+
+		// execute efficient max value algorithm and calculate run time
+		startTime = System.nanoTime();
 		maxValue(map);
+		stopTime = System.nanoTime();
+		long efficientValue = stopTime - startTime;
 
+		// calculate greedy algorithms and run time
+		startTime = System.nanoTime();
 		System.out.println("GREEDY COIN COUNTER:  " + greedyMaxCoin(map, map.length - 1, map[0].length - 1));
+		stopTime = System.nanoTime();
+		long greedyCoin = stopTime - startTime;
+
+		startTime = System.nanoTime();
 		System.out.println("GREEDY COIN VALUE:  " + greedyMaxValue(map, map.length - 1, map[0].length - 1));
-
-
+		stopTime = System.nanoTime();
+		long greedyValue = stopTime - startTime;
+		
+		
+		System.out.println("RUNNING TIME OF ALGORITHMS:\n\tEfficient max coins algorithm: " + efficientCoin + "ns");
+		System.out.println("\n\tEfficient max value of coins algorithm: " + efficientValue+ "ns");
+		System.out.println("\n\tGreedy max coin algorithm: " + greedyCoin+ "ns");
+		System.out.println("\n\tGreedy max value of coins algorithm: " + greedyValue +  "ns");
 		// printMap(genMap);
 	}
 
@@ -143,9 +160,9 @@ public class CoinCollector {
 			}
 		}
 
-	 System.out.println("Result Map of Max Coins: ");
-		  printMap(result);
-return result[n - 1][m - 1];
+		System.out.println("Result Map of Max Coins: ");
+		printMap(result);
+		return result[n - 1][m - 1];
 	}
 
 	// efficient algorithm to determine the maximum value of coins that can be
@@ -171,10 +188,8 @@ return result[n - 1][m - 1];
 			}
 		}
 
-	
-	 System.out.println("Result Map of Max Value: ");
-		  printMap(result);
-		 
+		System.out.println("Result Map of Max Value: ");
+		printMap(result);
 
 		return result[n - 1][m - 1];
 	}
@@ -220,10 +235,8 @@ return result[n - 1][m - 1];
 		} else {
 			// if the current slot has a coin in it add 1 and call the max
 			// functionon both possible directions
-			
+
 			if (coins[row][column] > 0) {
-				//System.out.println("COUNTER PING");
-				// System.out.println("row: " + row + "column: " + column);
 				return 1 + Math.max(greedyMaxCoin(coins, row - 1, column), greedyMaxCoin(coins, row, column - 1));
 
 			}
@@ -240,22 +253,22 @@ return result[n - 1][m - 1];
 	public static double greedyMaxValue(double[][] coins, int row, int column) {
 
 		// base case: return 0
-				if (row == 0 || column == 0) {
-					return 0;
-				} else {
-					// if the current slot has a coin in it add 1 and call the max
-					// functionon both possible directions
-					if (coins[row][column] > 0) {
-						//System.out.println("VALUE PING");
-						// System.out.println("row: " + row + "column: " + column);
-						return coins[row][column] + Math.max(greedyMaxValue(coins, row - 1, column), greedyMaxValue(coins, row, column - 1));
+		if (row == 0 || column == 0) {
+			return 0;
+		} else {
+			// if the current slot has a coin in it add 1 and call the max
+			// function on both possible directions
+			if (coins[row][column] > 0) {
 
-					}
-					// otherwise just return the max of both previous paths
-					else {
-						return Math.max(greedyMaxValue(coins, row - 1, column), greedyMaxValue(coins, row, column - 1));
+				return coins[row][column]
+						+ Math.max(greedyMaxValue(coins, row - 1, column), greedyMaxValue(coins, row, column - 1));
 
-					}
+			}
+			// otherwise just return the max of both previous paths
+			else {
+				return Math.max(greedyMaxValue(coins, row - 1, column), greedyMaxValue(coins, row, column - 1));
+
+			}
 		}
 	}
 
